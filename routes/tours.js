@@ -1,7 +1,7 @@
 // routes/tours.js
 const express = require('express');
 const router = express.Router();
-const Tour = require('../models/Tour');
+const Tour = require('../models/tour');
 
 // Public list (optional)
 router.get('/', async (req, res) => {

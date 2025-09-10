@@ -1,8 +1,8 @@
 // routes/admin.js
 const express = require('express');
 const router = express.Router();
-const Appointment = require('../models/Appointment');
-const Tour = require('../models/Tour');
+const Appointment = require('../models/appointment');
+const Tour = require('../models/tour');
 
 // Admin dashboard: show appointments + tours
 router.get('/admin', async (req, res) => {

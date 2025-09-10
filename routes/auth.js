@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const Admin = require('../models/Admin');
-const Appointment = require('../models/Appointment');
-const Tour = require('../models/Tour');
+const Admin = require('../models/admin');
+const Appointment = require('../models/appointment');
+const Tour = require('../models/tour');
 
 // Render page-only login (no header/footer)
 router.get('/login', (req, res) => {
