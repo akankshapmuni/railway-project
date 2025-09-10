@@ -1,0 +1,81 @@
+<!-- index.ejs (content only, header/footer come from layout.ejs) -->
+<div class="card">
+  <div class="card-header">Appointments & Meetings</div>
+  <div class="card-body">
+    <form method="get" class="form-inline mb-3">
+      <label class="mr-2">From Date</label>
+      <input type="date" class="form-control mr-2" name="from" value="<%= filters.from %>">
+      <label class="mr-2">To Date</label>
+      <input type="date" class="form-control mr-2" name="to" value="<%= filters.to %>">
+      <button class="btn btn-primary mr-2">Show</button>
+      <a href="/" class="btn btn-secondary">Clear</a>
+      <% if (isAdmin) { %>
+        <a class="btn btn-success ml-auto" href="/appointments/new">Add New Appointment</a>
+      <% } %>
+    </form>
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-sm">
+        <thead class="thead-light">
+          <tr>
+            <th>Date</th><th>Time</th><th>With</th><th>Designation</th><th>Purpose</th><th>Venue</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (appointments.length === 0) { %>
+            <tr><td colspan="6" class="text-center">No appointments</td></tr>
+          <% } %>
+          <% appointments.forEach(a => { %>
+            <tr>
+              <td><%= new Date(a.date).toLocaleDateString() %></td>
+              <td><%= a.time %></td>
+              <td><%= a.withPerson %></td>
+              <td><%= a.designation %></td>
+              <td><%= a.purpose %></td>
+              <td><%= a.venue %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Tour section -->
+<div class="card mt-4">
+  <div class="card-header">Tour Programme / Leave</div>
+  <div class="card-body">
+    <form method="get" class="form-inline mb-3">
+      <label class="mr-2">From Date</label>
+      <input type="date" class="form-control mr-2" name="from" value="<%= filters.from %>">
+      <label class="mr-2">To Date</label>
+      <input type="date" class="form-control mr-2" name="to" value="<%= filters.to %>">
+      <button class="btn btn-primary mr-2">Show</button>
+      <% if (isAdmin) { %>
+        <a class="btn btn-success ml-auto" href="/tours/new">Add Tour/Leave</a>
+      <% } %>
+    </form>
+
+    <table class="table table-bordered table-sm">
+      <thead class="thead-light">
+        <tr>
+          <th>Officer</th><th>From</th><th>To</th><th>Purpose</th><th>Location</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (tours.length === 0) { %>
+          <tr><td colspan="5" class="text-center">No tour entries</td></tr>
+        <% } %>
+        <% tours.forEach(t => { %>
+          <tr>
+            <td><%= t.officerName %></td>
+            <td><%= new Date(t.from).toLocaleString() %></td>
+            <td><%= new Date(t.to).toLocaleString() %></td>
+            <td><%= t.purpose %></td>
+            <td><%= t.location %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>

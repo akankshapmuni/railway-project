@@ -1,0 +1,113 @@
+<%- include('partials/header', { isAdmin: isAdmin, hideLogin: hideLogin }) %>
+
+<div class="d-flex justify-content-between mb-3">
+  <h4>Admin Dashboard</h4>
+</div>
+
+<!-- Appointments -->
+<div class="mb-4">
+  <div class="d-flex align-items-center mb-2">
+    <h5 class="mb-0">Appointments</h5>
+    <% if (isAdmin) { %>
+      <a class="btn btn-sm btn-success ml-3" href="/appointments/new">Add</a>
+    <% } %>
+  </div>
+
+  <table class="table table-bordered table-sm">
+    <thead class="thead-light">
+      <tr>
+        <th>Date</th>
+        <th>Time</th>
+        <th>With</th>
+        <th>Designation</th>
+        <th>Purpose</th>
+        <th>Venue</th>
+        <% if (isAdmin) { %><th>Edit</th><% } %>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (!appointments || appointments.length === 0) { %>
+        <tr><td colspan="<%= isAdmin ? 7 : 6 %>" class="text-center">No appointments</td></tr>
+      <% } else { %>
+        <% appointments.forEach(a => { %>
+          <tr>
+            <td><%= a.date ? (typeof a.date === 'string' ? a.date : new Date(a.date).toLocaleDateString()) : '—' %></td>
+            <td><%= a.time || '—' %></td>
+            <td><%= a.with || a.withPerson || '—' %></td>
+            <td><%= a.designation || '—' %></td>
+            <td><%= a.purpose || '—' %></td>
+            <td><%= a.venue || '—' %></td>
+
+            <% if (isAdmin) { %>
+              <td class="text-nowrap">
+                <a class="btn btn-sm btn-primary" href="/appointments/<%= a._id %>/edit">Edit</a>
+                <form method="post" action="/appointments/<%= a._id %>?_method=DELETE" style="display:inline">
+                  <button class="btn btn-sm btn-danger">Delete</button>
+                </form>
+              </td>
+            <% } %>
+          </tr>
+        <% }) %>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+<!-- Tours -->
+<div class="mb-4">
+  <div class="d-flex align-items-center mb-2">
+    <h5 class="mb-0">Tour / Leaves</h5>
+    <% if (isAdmin) { %>
+      <a class="btn btn-sm btn-success ml-3" href="/tours/new">Add</a>
+    <% } %>
+  </div>
+
+  <table class="table table-bordered table-sm">
+    <thead class="thead-light">
+      <tr>
+        <th>Officer</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Out To / Location</th>
+        <th>Duty/Leave</th>
+        <th>Purpose</th>
+        <% if (isAdmin) { %><th>Edit</th><% } %>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (!tours || tours.length === 0) { %>
+        <tr><td colspan="<%= isAdmin ? 7 : 6 %>" class="text-center">No tours</td></tr>
+      <% } else { %>
+        <% tours.forEach(t => { %>
+          <tr>
+            <td><%= t.officerName || t.officer || '—' %></td>
+            <td>
+              <%= t.from
+                  ? (typeof t.from === 'string' ? t.from : new Date(t.from).toLocaleString())
+                  : '—' %>
+            </td>
+            <td>
+              <%= t.to
+                  ? (typeof t.to === 'string' ? t.to : new Date(t.to).toLocaleString())
+                  : '—' %>
+            </td>
+            <td><%= t.outTo || t.location || '—' %></td>
+            <td><%= t.dutyLeave || '—' %></td>
+            <td><%= t.purpose || '—' %></td>
+
+            <% if (isAdmin) { %>
+              <td class="text-nowrap">
+                <a class="btn btn-sm btn-primary" href="/tours/<%= t._id %>/edit">Edit</a>
+                <form method="post" action="/tours/<%= t._id %>?_method=DELETE" style="display:inline">
+                  <button class="btn btn-sm btn-danger">Delete</button>
+                </form>
+              </td>
+            <% } %>
+          </tr>
+        <% }) %>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('partials/footer') %>

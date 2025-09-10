@@ -1,0 +1,36 @@
+<%- include('partials/header', { isAdmin: !!user, hideLogin: false }) %>
+
+<div class="mb-4">
+  <h4>Appointments & Meetings</h4>
+
+  <table class="table table-bordered table-sm">
+    <thead class="thead-light">
+      <tr>
+        <th>Date</th>
+        <th>Time</th>
+        <th>With</th>
+        <th>Designation</th>
+        <th>Purpose</th>
+        <th>Venue</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (!appointments || appointments.length === 0) { %>
+        <tr><td colspan="6" class="text-center">No appointments</td></tr>
+      <% } else { %>
+        <% appointments.forEach(a => { %>
+          <tr>
+            <td><%= a.date ? new Date(a.date).toLocaleDateString() : '—' %></td>
+            <td><%= a.time || '—' %></td>
+            <td><%= a.with || '—' %></td>
+            <td><%= a.designation || '—' %></td>
+            <td><%= a.purpose || '—' %></td>
+            <td><%= a.venue || '—' %></td>
+          </tr>
+        <% }) %>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,57 @@
+<%- include('partials/header', { isAdmin: !!user, hideLogin: true }) %>
+
+<div class="card mx-auto" style="max-width:700px;">
+  <div class="card-header">Tour Programme / Leave Form</div>
+  <div class="card-body">
+    <form method="post" action="<%= tour && tour._id ? '/tours/' + tour._id + '?_method=PUT' : '/tours' %>">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label>Officer's Name</label>
+          <input type="text" name="officerName" value="<%= tour && tour.officerName ? tour.officerName : '' %>" class="form-control" required>
+        </div>
+        <div class="form-group col-md-6">
+          <label>Designation</label>
+          <input type="text" name="designation" value="<%= tour && tour.designation ? tour.designation : '' %>" class="form-control">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label>Leaving On</label>
+          <input type="date" name="from" value="<%= tour && tour.from ? new Date(tour.from).toISOString().substr(0,10) : '' %>" class="form-control">
+        </div>
+        <div class="form-group col-md-6">
+          <label>Coming Back On</label>
+          <input type="date" name="to" value="<%= tour && tour.to ? new Date(tour.to).toISOString().substr(0,10) : '' %>" class="form-control">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Purpose</label>
+        <input type="text" name="purpose" value="<%= tour && tour.purpose ? tour.purpose : '' %>" class="form-control">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label>Out To / Location</label>
+          <input type="text" name="outTo" value="<%= tour && tour.outTo ? tour.outTo : '' %>" class="form-control">
+        </div>
+        <div class="form-group col-md-6">
+          <label>Duty / Leave</label>
+          <select name="dutyLeave" class="form-control">
+            <option value="">-- Select --</option>
+            <option value="Duty" <%= tour && tour.dutyLeave === 'Duty' ? 'selected' : '' %>>Duty</option>
+            <option value="Leave" <%= tour && tour.dutyLeave === 'Leave' ? 'selected' : '' %>>Leave</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button class="btn btn-primary">Submit</button>
+        <a class="btn btn-secondary" href="/admin">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

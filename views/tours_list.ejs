@@ -1,0 +1,36 @@
+<%- include('partials/header', { isAdmin: !!user, hideLogin: false }) %>
+
+<div class="mb-4">
+  <h4>Tour Programme / Leave</h4>
+
+  <table class="table table-bordered table-sm">
+    <thead class="thead-light">
+      <tr>
+        <th>Officer</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Out To</th>
+        <th>Duty/Leave</th>
+        <th>Purpose</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (!tours || tours.length === 0) { %>
+        <tr><td colspan="6" class="text-center">No tours</td></tr>
+      <% } else { %>
+        <% tours.forEach(t => { %>
+          <tr>
+            <td><%= t.officerName || '—' %></td>
+            <td><%= t.from ? new Date(t.from).toLocaleString() : '—' %></td>
+            <td><%= t.to ? new Date(t.to).toLocaleString() : '—' %></td>
+            <td><%= t.outTo || '—' %></td>
+            <td><%= t.dutyLeave || '—' %></td>
+            <td><%= t.purpose || '—' %></td>
+          </tr>
+        <% }) %>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('partials/footer') %>

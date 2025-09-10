@@ -1,0 +1,47 @@
+<%- include('partials/header', { isAdmin: !!user, hideLogin: true }) %>
+
+<div class="card mx-auto" style="max-width:700px;">
+  <div class="card-header">Appointment Form</div>
+  <div class="card-body">
+    <form method="post" action="<%= appointment && appointment._id ? '/appointments/' + appointment._id + '?_method=PUT' : '/appointments' %>">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label>Date</label>
+          <input type="date" name="date" value="<%= appointment && appointment.date ? new Date(appointment.date).toISOString().substr(0,10) : '' %>" class="form-control">
+        </div>
+        <div class="form-group col-md-6">
+          <label>Time</label>
+          <input type="text" name="time" value="<%= appointment && appointment.time ? appointment.time : '' %>" class="form-control" placeholder="HH:MM">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label>With</label>
+          <input type="text" name="with" value="<%= appointment && appointment.with ? appointment.with : '' %>" class="form-control">
+        </div>
+        <div class="form-group col-md-6">
+          <label>Designation</label>
+          <input type="text" name="designation" value="<%= appointment && appointment.designation ? appointment.designation : '' %>" class="form-control">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Purpose</label>
+        <input type="text" name="purpose" value="<%= appointment && appointment.purpose ? appointment.purpose : '' %>" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label>Venue</label>
+        <input type="text" name="venue" value="<%= appointment && appointment.venue ? appointment.venue : '' %>" class="form-control">
+      </div>
+
+      <div class="text-center">
+        <button class="btn btn-primary">Submit</button>
+        <a class="btn btn-secondary" href="/admin">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<%- include('partials/footer') %>
